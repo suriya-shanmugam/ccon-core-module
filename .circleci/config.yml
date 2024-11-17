@@ -15,14 +15,14 @@ jobs:
     docker:
       - image: circleci/node:14
     steps:
-      -checkout
-      -setup_remote_docker:
-        docker_layer_caching: false
-      -run:
-        name: Build Docker image
-        command: |
-          docker build -t suriyashanmugam/ccon-dev-build:latest .
-          docker push suriyashanmugam/ccon-dev-build:latest
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: false
+      - run:
+          name: Build Docker image
+          command: |
+            docker build -t suriyashanmugam/ccon-dev-build:latest .
+            docker push suriyashanmugam/ccon-dev-build:latest
 
 
 workflows:
