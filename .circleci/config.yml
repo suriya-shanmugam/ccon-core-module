@@ -14,16 +14,16 @@ jobs:
       - run:
           name: Set up Docker
           command: |
-            docker version 
+            sudo docker version 
       - run:
           name: Build Docker image
           command: |
-            docker build -t suriyashanmugam/ccon-dev-build:latest .
+            sudo docker build -t suriyashanmugam/ccon-dev-build:latest .
       
       - run:
           name: Push Docker image
           command: |
-            docker push suriyashanmugam/ccon-dev-build:latest
+            sudo docker push suriyashanmugam/ccon-dev-build:latest
 
 workflows:
   version: 2
