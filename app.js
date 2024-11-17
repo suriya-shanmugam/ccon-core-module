@@ -5,7 +5,7 @@ const PORT = 3000;
 
 // Route for the root URL
 app.get('/', (req, res) => {
-  res.send('Hello, World!');
+  res.send('Hello, QuantumBots!');
 });
 
 // Start the server
