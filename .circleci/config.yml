@@ -1,39 +1,44 @@
 version: 2.1
 
 executors:
-  docker-executor:
+  node-executor:
     docker:
-      - image: cimg/node:16.16  # Node.js image (you can change the version as needed)
+      - image: circleci/node:14  # Or use your base Node.js image if necessary
     working_directory: ~/repo
 
 jobs:
-  build:
-    executor: docker-executor
+  test:
+    executor: node-executor
     steps:
-      - checkout  # Pulls the source code
-      
+      - checkout  # Check out the source code
       - run:
-          name: Install Docker
+          name: Install dependencies
           command: |
-            sudo apt-get update
-            sudo apt-get install -y docker.io
-      
+            curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+            sudo apt-get install -y nodejs
+            npm install
+
+  build:
+    executor: node-executor
+    steps:
+      - checkout
       - run:
-          name: Set up Docker
-          command: |
-            sudo docker version 
+          name: Install dependencies
+          command: npm install
       - run:
           name: Build Docker image
-          command: |
-            sudo docker build -t suriyashanmugam/ccon-dev-build:latest .
-      
+          command: docker build -t suriyashanmugam/ccon-dev-build:latest .
       - run:
-          name: Push Docker image
+          name: Push Docker image to registry
           command: |
-            sudo docker push suriyashanmugam/ccon-dev-build:latest
+            
+            docker push suriyashanmugam/ccon-dev-build:latest
 
 workflows:
   version: 2
-  build_and_push:
+  test_and_deploy:
     jobs:
-      - build
+      - test
+      - build:
+          requires:
+            - test
