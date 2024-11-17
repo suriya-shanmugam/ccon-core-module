@@ -29,3 +29,4 @@ workflows:
   test_and_deploy:
     jobs:
       - build_test
+      - push_image
