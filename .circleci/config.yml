@@ -32,6 +32,6 @@ workflows:
   build-and-test:
     jobs:
       - test-node
-    # - deploy:
-    #     requires:
-    #       - test-node
+      - deploy:
+          requires:
+           - test-node
