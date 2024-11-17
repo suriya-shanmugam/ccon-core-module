@@ -22,7 +22,7 @@ jobs:
           name: Build Docker image
           command: |
             docker build -t suriyashanmugam/ccon-dev-build:latest .
-            docker login
+            echo $DOCKER_KEY | docker login -u suriyashanmugam --password-stdin
             docker push suriyashanmugam/ccon-dev-build:latest
 
 
