@@ -21,8 +21,13 @@ jobs:
     steps:
       # Replace this with steps to deploy to users
       - run:
-          name: deploy
-          command: '#e.g. ./deploy.sh'
+          name: Build Docker image
+          command: docker build -t suriyashanmugam/ccon-dev-build:latest .
+      
+      - run:
+          name: Push Docker image
+          command: docker push suriyashanmugam/ccon-dev-build:latest
+
 workflows:
   build-and-test:
     jobs:
