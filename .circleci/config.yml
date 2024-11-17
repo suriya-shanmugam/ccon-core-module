@@ -11,6 +11,19 @@ jobs:
           name: Install dependencies
           command: |
             npm install --save
+  push_image:
+    docker:
+      - image: circleci/node:14
+    steps:
+      -checkout
+      -setup_remote_docker:
+        docker_layer_caching: false
+      -run:
+        name: Build Docker image
+        command: |
+          docker build -t suriyashanmugam/ccon-dev-build:latest .
+          docker push suriyashanmugam/ccon-dev-build:latest
+
 
 workflows:
   test_and_deploy:
